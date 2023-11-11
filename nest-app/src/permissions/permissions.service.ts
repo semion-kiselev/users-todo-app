@@ -2,8 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { Permission } from './permissions.types';
 import { DatabaseService } from '../database/database.service';
 
-// todo: catch errors
-
 @Injectable()
 export class PermissionsService {
   constructor(private db: DatabaseService) {}
