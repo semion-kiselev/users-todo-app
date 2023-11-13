@@ -20,7 +20,7 @@ async function main() {
     const postgrator = new Postgrator({
       migrationPattern: join(__dirname, "./migrations/*"),
       driver: "pg",
-      database: "postgres",
+      database: process.env.DB_NAME,
       schemaTable: "migrations",
       execQuery: (query) => client.query(query),
     });
