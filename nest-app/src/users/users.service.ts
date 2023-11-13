@@ -5,7 +5,7 @@ import { normalizeUser } from './users.utils';
 import {
   User,
   UserFromDb,
-  CreateUserPayloadType,
+  CreateUserPayload,
   UserWithPermissionsFromDb,
 } from './users.types';
 import { Pool } from 'pg';
@@ -24,7 +24,7 @@ export class UsersService {
     email,
     password,
     permissions,
-  }: CreateUserPayloadType): Promise<User> {
+  }: CreateUserPayload): Promise<User> {
     const client = await this.pool.connect();
 
     try {

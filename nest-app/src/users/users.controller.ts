@@ -1,9 +1,9 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ZodPipe } from '../pipes/zod-pipe';
 import { UsersService } from './users.service';
-import { CreateUserPayload } from './users.schemas';
+import { CreateUserPayloadSchema } from './users.schemas';
 import { Permissions } from '../auth/auth.decorators';
-import { CreateUserPayloadType, User } from './users.types';
+import { CreateUserPayload, User } from './users.types';
 import { Permission } from '../auth/auth.constants';
 
 @Controller('users')
@@ -14,7 +14,7 @@ export class UsersController {
   @Post()
   @Permissions(Permission.UM)
   createUser(
-    @Body(new ZodPipe(CreateUserPayload)) payload: CreateUserPayloadType,
+    @Body(new ZodPipe(CreateUserPayloadSchema)) payload: CreateUserPayload,
   ): Promise<User> {
     return this.usersService.createUser(payload);
   }

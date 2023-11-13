@@ -1,7 +1,8 @@
+import { APP_GUARD } from '@nestjs/core';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import databaseConfig from './config/database.config';
-import tokenConfig from "./config/token.config";
+import tokenConfig from './config/token.config';
 import { DatabaseModule } from './database/database.module';
 import { PermissionsModule } from './permissions/permissions.module';
 import { UsersModule } from './users/users.module';

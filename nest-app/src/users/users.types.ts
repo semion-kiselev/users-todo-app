@@ -1,7 +1,7 @@
 import { z } from "zod";
 import {
-  CreateUserPayload,
-  UpdateUserPayload,
+  CreateUserPayloadSchema,
+  UpdateUserPayloadSchema,
 } from "./users.schemas";
 
 export type User = {
@@ -34,17 +34,17 @@ export type UserWithPermissionsFromDb = {
   permissions: string[];
 };
 
-export type CreateUserPayloadType = z.infer<typeof CreateUserPayload>;
-export type UpdateUserPayloadType = z.infer<typeof UpdateUserPayload>;
+export type CreateUserPayload = z.infer<typeof CreateUserPayloadSchema>;
+export type UpdateUserPayload = z.infer<typeof UpdateUserPayloadSchema>;
 
-export type DeleteUserParamsType = {
+export type DeleteUserParams = {
   id: string;
 };
 
-export type GetUserParamsType = {
+export type GetUserParams = {
   id: string;
 };
 
-export type UpdateUserParamsType = {
+export type UpdateUserParams = {
   id: string;
 };
