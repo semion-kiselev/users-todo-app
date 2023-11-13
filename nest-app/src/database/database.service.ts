@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Pool } from "pg";
-import {ConfigService} from "@nestjs/config";
+import { Pool } from 'pg';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class DatabaseService {
@@ -12,7 +12,7 @@ export class DatabaseService {
       database: this.configService.get<string>('database.name'),
       port: Number(this.configService.get<string>('database.port')),
       host: this.configService.get<string>('database.host'),
-    })
+    });
   }
 
   getPool(): Pool {
