@@ -36,15 +36,3 @@ export type UserWithPermissionsFromDb = {
 
 export type CreateUserPayload = z.infer<typeof CreateUserPayloadSchema>;
 export type UpdateUserPayload = z.infer<typeof UpdateUserPayloadSchema>;
-
-export type DeleteUserParams = {
-  id: string;
-};
-
-export type GetUserParams = {
-  id: string;
-};
-
-export type UpdateUserParams = {
-  id: string;
-};

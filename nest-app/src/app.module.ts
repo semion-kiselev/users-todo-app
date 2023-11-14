@@ -1,4 +1,3 @@
-import { APP_GUARD } from '@nestjs/core';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import databaseConfig from './config/database.config';
