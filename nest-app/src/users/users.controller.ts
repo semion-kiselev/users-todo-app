@@ -10,7 +10,6 @@ import { Permission } from '../auth/auth.constants';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  // todo: catch 409
   @Post()
   @Permissions(Permission.UM)
   createUser(
@@ -19,7 +18,6 @@ export class UsersController {
     return this.usersService.createUser(payload);
   }
 
-  // todo: catch 409, catchFKViolation?
   @Put(':id')
   @Permissions(Permission.UM)
   updateUser(

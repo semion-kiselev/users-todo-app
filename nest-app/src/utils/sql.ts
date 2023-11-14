@@ -1,4 +1,4 @@
-import format from "pg-format";
+import * as format from "pg-format";
 
 const filterUndefined = ([_, val]: [string, unknown]) =>
   typeof val !== "undefined";
