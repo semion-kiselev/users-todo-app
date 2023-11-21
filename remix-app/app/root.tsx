@@ -6,13 +6,18 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData
 } from "@remix-run/react";
 import styles from "./global.css";
 import { Layout } from "./layout";
+import { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
+import { authenticator } from "~/auth/auth.server";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
 export default function App() {
+  const data = useLoaderData<typeof loader>();
+
   return (
     <html lang="en" style={{ height: '100%' }}>
       <head>
@@ -22,7 +27,7 @@ export default function App() {
         <Links />
       </head>
       <body className="h-full">
-        <Layout>
+        <Layout user={data?.user}>
           <Outlet />
         </Layout>
         <ScrollRestoration />
@@ -31,4 +36,12 @@ export default function App() {
       </body>
     </html>
   );
+}
+
+export async function loader({ request }: LoaderFunctionArgs) {
+  return await authenticator.isAuthenticated(request);
+}
+
+export async function action({ request }: ActionFunctionArgs) {
+  return await authenticator.logout(request, { redirectTo: "/" });
 }

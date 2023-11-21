@@ -9,4 +9,4 @@ export type LoginApiParams = {
   password: string;
 };
 export const login = ({ email, password }: LoginApiParams) =>
-  client.post<string>('/auth/login', { email, password }).then(res => res.data);
+  client.post<{ token: string }>('/auth/login', { email, password }).then(res => res.data);
