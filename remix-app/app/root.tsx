@@ -12,6 +12,7 @@ import styles from "./global.css";
 import { Layout } from "./layout";
 import { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { authenticator } from "~/auth/auth.server";
+import { logout } from "~/api";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
@@ -43,5 +44,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export async function action({ request }: ActionFunctionArgs) {
+  const data = await authenticator.isAuthenticated(request);
+  if (!data) return;
+
+  await logout({ token: data.token });
   return await authenticator.logout(request, { redirectTo: "/" });
 }
