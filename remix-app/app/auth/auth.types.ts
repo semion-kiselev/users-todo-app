@@ -24,3 +24,8 @@ export type AuthData = {
   user: UserFromToken;
 };
 
+export type PermissionItem = {
+  id: string;
+  name: string;
+};
+

@@ -1,8 +1,9 @@
 import { Request } from 'express';
 import { z } from 'zod';
-import { LoginSchema } from './auth.schemas';
+import { LoginSchema, LogoutSchema } from './auth.schemas';
 
 export type LoginPayload = z.infer<typeof LoginSchema>;
+export type LogoutPayload = z.infer<typeof LogoutSchema>;
 
 export type TokenPayload = {
   sub: number;

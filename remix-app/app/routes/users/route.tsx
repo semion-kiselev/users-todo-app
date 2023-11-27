@@ -6,6 +6,25 @@ import { User } from "~/types/user.types";
 import { Permission } from "~/auth/auth.types";
 import { RequirePermissions } from "~/components/require-permissions/require-permissions";
 
+export async function loader({ request }: LoaderFunctionArgs) {
+  const authData = await authenticator.isAuthenticated(request);
+  if (!authData) {
+    return redirect("/login");
+  }
+
+  let users: User[] = [];
+  try {
+    users = await getUsers({ token: authData.token });
+  } catch (error) {
+    console.log({ error });
+  }
+
+  return {
+    users,
+    authData
+  }
+}
+
 export default function Users() {
   const { users, authData } = useLoaderData<typeof loader>();
 
@@ -49,23 +68,4 @@ export default function Users() {
       )}
     </div>
   );
-}
-
-export async function loader({ request }: LoaderFunctionArgs) {
-  const authData = await authenticator.isAuthenticated(request);
-  if (!authData) {
-    return redirect("/login");
-  }
-
-  let users: User[] = [];
-  try {
-    users = await getUsers({ token: authData.token });
-  } catch (error) {
-    console.log({ error });
-  }
-
-  return {
-    users,
-    authData
-  }
 }

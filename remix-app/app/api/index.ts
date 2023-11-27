@@ -1,5 +1,6 @@
 import axios from "axios";
 import { User } from "~/types/user.types";
+import { PermissionItem } from "~/auth/auth.types";
 
 const client = axios.create({
   baseURL: 'http://localhost:3456',
@@ -18,13 +19,17 @@ export const login = ({ email, password }: LoginApiParams) =>
 // Logout
 
 export type LogoutApiParams = {
-  token: string;
+  id: number;
 };
 
-export const logout = ({ token }: LogoutApiParams) =>
-  client.get<{ token: string }>('/auth/logout', {
-    headers: { "authorization": `Bearer ${token}` }
-  }).then(res => res.data);
+export const logout = ({ id }: LogoutApiParams) =>
+  client.post<null>('/auth/logout', { id }).then(res => res.data);
+
+// Get Permissions
+
+export const getPermissions = ({ token }: GetUsersApiParams) => client.get<PermissionItem[]>('/permissions', {
+  headers: { "authorization": `Bearer ${token}` }
+}).then(r => r.data);
 
 // Get Users
 
@@ -37,7 +42,7 @@ export const getUsers = ({ token }: GetUsersApiParams) => client.get<User[]>('/u
 
 // Create User
 
-type CreateUserData = {
+export type CreateUserData = {
   name: string;
   email: string;
   password: string;

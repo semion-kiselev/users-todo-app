@@ -16,6 +16,18 @@ import { logout } from "~/api";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
+export async function loader({ request }: LoaderFunctionArgs) {
+  return await authenticator.isAuthenticated(request);
+}
+
+export async function action({ request }: ActionFunctionArgs) {
+  const data = await authenticator.isAuthenticated(request);
+  if (!data) return;
+
+  await logout({ id: data.user.id });
+  return await authenticator.logout(request, { redirectTo: "/" });
+}
+
 export default function App() {
   const data = useLoaderData<typeof loader>();
 
@@ -37,16 +49,4 @@ export default function App() {
       </body>
     </html>
   );
-}
-
-export async function loader({ request }: LoaderFunctionArgs) {
-  return await authenticator.isAuthenticated(request);
-}
-
-export async function action({ request }: ActionFunctionArgs) {
-  const data = await authenticator.isAuthenticated(request);
-  if (!data) return;
-
-  await logout({ token: data.token });
-  return await authenticator.logout(request, { redirectTo: "/" });
 }

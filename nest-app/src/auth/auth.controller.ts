@@ -1,9 +1,8 @@
-import { Controller, Get, Post, Body, HttpCode, HttpStatus, Req } from '@nestjs/common';
-import { Permissions } from "./auth.decorators";
+import { Controller, Post, Body, HttpCode, HttpStatus } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ZodPipe } from '../pipes/zod-pipe';
 import { LoginSchema } from './auth.schemas';
-import {LoginPayload, RequestWithUser} from './auth.types';
+import { LoginPayload, LogoutPayload } from "./auth.types";
 
 @Controller('auth')
 export class AuthController {
@@ -15,9 +14,8 @@ export class AuthController {
     return this.authService.login(payload);
   }
 
-  @Get('logout')
-  @Permissions()
-  logout(@Req() req: RequestWithUser) {
-    return this.authService.logout(req.user.id);
+  @Post('logout')
+  logout(@Body() payload: LogoutPayload) {
+    return this.authService.logout(payload.id);
   }
 }
