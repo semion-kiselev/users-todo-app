@@ -16,7 +16,26 @@ export const Layout = ({ children, user } : Props) => {
         <div className="flex gap-3">
           <RequirePermissions accessPermissions={[Permission.UR]} userPermissions={user?.permissions}>
             <p className="text-blue-800 font-bold">
-              <NavLink to="/users">Users</NavLink>
+              <NavLink to="/users">
+                {({ isActive, isPending, isTransitioning }) => {
+                  if (isActive) {
+                    return (
+                      <span className="text-green-800">Users</span>
+                    );
+                  }
+                  if (isPending) {
+                    return (
+                      <span>Users Loading...</span>
+                    );
+                  }
+                  if (isTransitioning) {
+                    return (
+                      <span>Users Transitioning...</span>
+                    );
+                  }
+                  return <span>Users</span>
+                }}
+              </NavLink>
             </p>
           </RequirePermissions>
           <p className="text-blue-800 font-bold">

@@ -1,8 +1,9 @@
-import { Form, NavLink, useLoaderData } from "@remix-run/react";
+import { Form, NavLink, useActionData, useLoaderData, useNavigation } from "@remix-run/react";
 import { ActionFunctionArgs, LoaderFunctionArgs, redirect } from "@remix-run/node";
 import { authenticator } from "~/auth/auth.server";
-import { createUser, CreateUserData, getPermissions } from "~/api";
+import { createUser, getPermissions } from "~/api";
 import { Permission } from "~/auth/auth.types";
+import { AxiosError } from "axios";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const authData = await authenticator.isAuthenticated(request);
@@ -32,23 +33,28 @@ export async function action({ request }: ActionFunctionArgs) {
     await createUser({ token: authData.token, data });
     return redirect("/users");
   } catch (error) {
-    // todo: handle error
-    console.log(error);
+    const errorData = (error as AxiosError).response?.data;
+    return { error: errorData };
   }
-
-  return null;
 }
 
 export default function CreateUser() {
   const { permissions } = useLoaderData<typeof loader>();
-
-  // todo: pending state
+  const navigation = useNavigation();
+  const isCreating = navigation.state === "submitting";
+  const isLoading = navigation.state === "loading";
+  const createError = useActionData<typeof action>();
 
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }} className="bg-green-400 h-full">
       <h1>Create User</h1>
+      {createError && (
+        <div className="my-2 text-red-900">
+          {JSON.stringify(createError)}
+        </div>
+      )}
       <p className="text-blue-800 font-bold">
-        <NavLink to="/users">Back</NavLink>
+        <NavLink to="/users">Back</NavLink>{" "}{isLoading && <span>Loading...</span>}
       </p>
       <Form method="post">
         <label htmlFor="name" className="block">Name:</label>
@@ -82,7 +88,9 @@ export default function CreateUser() {
         </div>
         <br/>
         <div>
-          <button type="submit">Create</button>
+          {isCreating ? "Creating..." : (
+            <button type="submit">Create</button>
+          )}
         </div>
       </Form>
     </div>

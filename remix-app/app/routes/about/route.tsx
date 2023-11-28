@@ -5,7 +5,7 @@ export default function About() {
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }} className="bg-gray-400 h-full">
       <h1>About</h1>
       <p className="text-blue-800 font-bold">
-        <NavLink to="/">Back</NavLink>
+        <NavLink to="/">Dashboard</NavLink>
       </p>
     </div>
   );

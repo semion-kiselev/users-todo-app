@@ -2,6 +2,8 @@ import axios from "axios";
 import { User } from "~/types/user.types";
 import { PermissionItem } from "~/auth/auth.types";
 
+const sleep = (time: number = 1000) => new Promise((res) => setTimeout(res, time));
+
 const client = axios.create({
   baseURL: 'http://localhost:3456',
 });
@@ -36,9 +38,13 @@ export const getPermissions = ({ token }: GetUsersApiParams) => client.get<Permi
 type GetUsersApiParams = {
   token: string;
 }
-export const getUsers = ({ token }: GetUsersApiParams) => client.get<User[]>('/users', {
-  headers: { "authorization": `Bearer ${token}` }
-}).then(r => r.data);
+export const getUsers = async ({ token }: GetUsersApiParams) => {
+  await sleep(2000);
+  // return Promise.reject(new Error("fail"));
+  return client.get<User[]>('/users', {
+    headers: { "authorization": `Bearer ${token}` }
+  }).then(r => r.data);
+}
 
 // Create User
 
@@ -54,10 +60,13 @@ export type CreateUserApiParams = {
   data: CreateUserData;
 };
 
-export const createUser = ({ token, data }: CreateUserApiParams) =>
-  client.post<User>('/users', data, {
+export const createUser = async ({ token, data }: CreateUserApiParams) => {
+  await sleep();
+  return client.post<User>('/users', data, {
     headers: { "authorization": `Bearer ${token}` }
   }).then(res => res.data);
+}
+
 
 // Update User
 
@@ -81,7 +90,11 @@ type DeleteUserApiParams = {
   id: number;
 };
 
-export const deleteUser = ({ token, id }: DeleteUserApiParams) =>
-  client.delete<null>(`/users/${id}`, {
+export const deleteUser = async ({ token, id }: DeleteUserApiParams) => {
+  await sleep();
+  // return Promise.reject(new Error("fail"));
+  return client.delete<null>(`/users/${id}`, {
     headers: { "authorization": `Bearer ${token}` }
   }).then(res => res.data);
+}
+
