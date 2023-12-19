@@ -1,4 +1,4 @@
-import { Permission } from "~/auth/auth.types";
+import { Permission } from '~/auth/auth.types';
 
 export type User = {
   id: number;

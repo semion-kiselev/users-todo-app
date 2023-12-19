@@ -1,8 +1,8 @@
 import { Controller, Post, Body, HttpCode, HttpStatus } from '@nestjs/common';
-import { AuthService } from './auth.service';
 import { ZodPipe } from '../pipes/zod-pipe';
 import { LoginSchema } from './auth.schemas';
-import { LoginPayload, LogoutPayload } from "./auth.types";
+import { AuthService } from './auth.service';
+import { LoginPayload, LogoutPayload } from './auth.types';
 
 @Controller('auth')
 export class AuthController {

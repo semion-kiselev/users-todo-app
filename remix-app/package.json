@@ -7,9 +7,7 @@
     "build": "remix build",
     "dev": "remix dev --manual",
     "start": "remix-serve ./build/index.js",
-    "typecheck": "tsc",
-    "code:format": "prettier . --write",
-    "code:check": "npx prettier . --check"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@remix-run/css-bundle": "^2.2.0",
@@ -26,12 +24,9 @@
   "devDependencies": {
     "@remix-run/dev": "^2.2.0",
     "@remix-run/eslint-config": "^2.2.0",
-    "@trivago/prettier-plugin-sort-imports": "4.2.0",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "eslint": "^8.38.0",
-    "eslint-config-prettier": "9.0.0",
-    "prettier": "3.0.3",
     "tailwindcss": "3.3.5",
     "typescript": "^5.1.6"
   },

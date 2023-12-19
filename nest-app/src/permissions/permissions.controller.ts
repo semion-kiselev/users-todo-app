@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { PermissionsService } from './permissions.service';
-import { Permission } from "./permissions.types";
+import { Permission } from './permissions.types';
 
 @Controller('permissions')
 export class PermissionsController {

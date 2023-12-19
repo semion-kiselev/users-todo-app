@@ -36,8 +36,10 @@ export const deleteUserSql = 'DELETE FROM employee WHERE id = $1';
 
 export const updateUserSql = 'UPDATE employee SET %s WHERE id = $1 RETURNING *';
 
-export const removeUserPermissionsSql = 'DELETE FROM employee_permission WHERE employee_id = $1';
-export const addUserPermissionsSql = 'INSERT INTO employee_permission (employee_id, permission_id) VALUES %L';
+export const removeUserPermissionsSql =
+  'DELETE FROM employee_permission WHERE employee_id = $1';
+export const addUserPermissionsSql =
+  'INSERT INTO employee_permission (employee_id, permission_id) VALUES %L';
 
 export const getUserPermissionsSql = `
   SELECT array_agg(ep.permission_id) as permissions

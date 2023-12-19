@@ -1,4 +1,4 @@
-import { registerAs } from "@nestjs/config";
+import { registerAs } from '@nestjs/config';
 
 export default registerAs('token', () => ({
   secret: process.env.ACCESS_TOKEN_SECRET,

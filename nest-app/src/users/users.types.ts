@@ -1,8 +1,8 @@
-import { z } from "zod";
+import { z } from 'zod';
 import {
   CreateUserPayloadSchema,
   UpdateUserPayloadSchema,
-} from "./users.schemas";
+} from './users.schemas';
 
 export type User = {
   id: number;

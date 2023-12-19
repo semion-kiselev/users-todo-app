@@ -1,10 +1,23 @@
-import { Body, Controller, Get, Post, Put, Delete, Param, ParseIntPipe } from '@nestjs/common';
-import { ZodPipe } from '../pipes/zod-pipe';
-import { UsersService } from './users.service';
-import {CreateUserPayloadSchema, UpdateUserPayloadSchema, UserIdSchema} from './users.schemas';
-import { Permissions } from '../auth/auth.decorators';
-import { CreateUserPayload, User } from './users.types';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Param,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { Permission } from '../auth/auth.constants';
+import { Permissions } from '../auth/auth.decorators';
+import { ZodPipe } from '../pipes/zod-pipe';
+import {
+  CreateUserPayloadSchema,
+  UpdateUserPayloadSchema,
+  UserIdSchema,
+} from './users.schemas';
+import { UsersService } from './users.service';
+import { CreateUserPayload, User } from './users.types';
 
 @Controller('users')
 export class UsersController {

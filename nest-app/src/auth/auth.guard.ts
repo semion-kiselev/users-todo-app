@@ -4,15 +4,15 @@ import {
   ExecutionContext,
   UnauthorizedException,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
+import { Pool } from 'pg';
+import { DatabaseService } from '../database/database.service';
 import { Permission } from './auth.constants';
 import { PERMISSIONS_KEY } from './auth.decorators';
-import { ConfigService } from '@nestjs/config';
 import { TokenPayload } from './auth.types';
-import {DatabaseService} from "../database/database.service";
-import {Pool} from "pg";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
     private reflector: Reflector,
     private jwtService: JwtService,
     private configService: ConfigService,
-    private db: DatabaseService
+    private db: DatabaseService,
   ) {
     this.pool = this.db.getPool();
   }
@@ -67,12 +67,15 @@ export class AuthGuard implements CanActivate {
 
     request['user'] = user;
 
-    if (Array.isArray(requiredPermissions) && requiredPermissions.length === 0) {
+    if (
+      Array.isArray(requiredPermissions) &&
+      requiredPermissions.length === 0
+    ) {
       return true;
     }
 
-    return requiredPermissions.every(
-      (permission) => user.permissions.includes(permission),
+    return requiredPermissions.every((permission) =>
+      user.permissions.includes(permission),
     );
   }
 
@@ -84,7 +87,7 @@ export class AuthGuard implements CanActivate {
   private async getUserTokenExpirationTime(userId: number) {
     const token_expired_at = await this.pool
       .query<{ token_expired_at: string }>(
-        "SELECT token_expired_at FROM employee WHERE id = $1",
+        'SELECT token_expired_at FROM employee WHERE id = $1',
         [userId],
       )
       .then((result) => result.rows[0].token_expired_at);

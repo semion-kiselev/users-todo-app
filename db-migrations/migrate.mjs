@@ -1,8 +1,8 @@
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
 import 'dotenv/config';
-import pg from "pg";
-import Postgrator from "postgrator";
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import pg from 'pg';
+import Postgrator from 'postgrator';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -18,15 +18,15 @@ async function main() {
     await client.connect();
 
     const postgrator = new Postgrator({
-      migrationPattern: join(__dirname, "./migrations/*"),
-      driver: "pg",
+      migrationPattern: join(__dirname, './migrations/*'),
+      driver: 'pg',
       database: process.env.DB_NAME,
-      schemaTable: "migrations",
+      schemaTable: 'migrations',
       execQuery: (query) => client.query(query),
     });
 
     await postgrator.migrate();
-    console.log("successfully migrated!");
+    console.log('successfully migrated!');
   } catch (error) {
     console.error(error);
     console.error(error.appliedMigrations);

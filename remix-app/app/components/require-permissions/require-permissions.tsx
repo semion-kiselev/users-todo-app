@@ -1,5 +1,5 @@
-import { Permission } from "~/auth/auth.types";
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
+import { Permission } from '~/auth/auth.types';
 
 type Props = {
   userPermissions?: Permission[];
@@ -7,10 +7,16 @@ type Props = {
   children: ReactNode;
 };
 
-export const RequirePermissions = ({ children, userPermissions, accessPermissions }: Props) => {
+export const RequirePermissions = ({
+  children,
+  userPermissions,
+  accessPermissions,
+}: Props) => {
   if (!userPermissions) {
     return null;
   }
-  const hasPermissions = accessPermissions.every((p) => userPermissions.includes(p));
+  const hasPermissions = accessPermissions.every((p) =>
+    userPermissions.includes(p),
+  );
   return hasPermissions ? children : null;
 };

@@ -1,5 +1,5 @@
 - reload even after failed action (why?) -> use shouldRevalidate
 - on reload load everything in loader
 - strange page loading system: prepare page, then load it with data loaded,
-so you have to wait on prev page for target page data loading
+  so you have to wait on prev page for target page data loading
 - to get data for combobox or something like this use api routes + fetcher.load or fetcher.submit

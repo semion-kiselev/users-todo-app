@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { UserIdSchema } from "../users/users.schemas";
+import { UserIdSchema } from '../users/users.schemas';
 
 export const LoginSchema = z.object({
   email: z.string().email({ message: 'Please, enter correct email' }),

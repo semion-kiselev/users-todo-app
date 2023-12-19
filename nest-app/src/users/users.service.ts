@@ -1,16 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { Pool } from 'pg';
 import * as format from 'pg-format';
 import { DatabaseService } from '../database/database.service';
-import { normalizeUser } from './users.utils';
-import {
-  User,
-  UserFromDb,
-  CreateUserPayload,
-  UserWithPermissionsFromDb,
-  UpdateUserPayload,
-} from './users.types';
-import { Pool } from 'pg';
 import { toCamelCase } from '../utils/lib';
+import { getSqlWithValuesForUpdate } from '../utils/sql';
 import {
   addPermissionsSql,
   addUserPermissionsSql,
@@ -23,7 +16,14 @@ import {
   removeUserPermissionsSql,
   updateUserSql,
 } from './users.sql';
-import { getSqlWithValuesForUpdate } from '../utils/sql';
+import {
+  User,
+  UserFromDb,
+  CreateUserPayload,
+  UserWithPermissionsFromDb,
+  UpdateUserPayload,
+} from './users.types';
+import { normalizeUser } from './users.utils';
 
 @Injectable()
 export class UsersService {

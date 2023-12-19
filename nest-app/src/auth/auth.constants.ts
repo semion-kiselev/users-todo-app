@@ -1,4 +1,4 @@
 export enum Permission {
-  UR = "UR",
-  UM = "UM"
+  UR = 'UR',
+  UM = 'UM',
 }

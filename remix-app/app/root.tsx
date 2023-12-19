@@ -1,4 +1,5 @@
-import type { LinksFunction } from "@remix-run/node";
+import type { LinksFunction } from '@remix-run/node';
+import { ActionFunctionArgs, LoaderFunctionArgs } from '@remix-run/node';
 import {
   Links,
   LiveReload,
@@ -6,15 +7,14 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useLoaderData
-} from "@remix-run/react";
-import styles from "./global.css";
-import { Layout } from "./layout";
-import { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { authenticator } from "~/auth/auth.server";
-import { logout } from "~/api";
+  useLoaderData,
+} from '@remix-run/react';
+import { logout } from '~/api';
+import { authenticator } from '~/auth/auth.server';
+import styles from './global.css';
+import { Layout } from './layout';
 
-export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
+export const links: LinksFunction = () => [{ rel: 'stylesheet', href: styles }];
 
 export async function loader({ request }: LoaderFunctionArgs) {
   return await authenticator.isAuthenticated(request);
@@ -25,7 +25,7 @@ export async function action({ request }: ActionFunctionArgs) {
   if (!data) return;
 
   await logout({ id: data.user.id });
-  return await authenticator.logout(request, { redirectTo: "/" });
+  return await authenticator.logout(request, { redirectTo: '/' });
 }
 
 export default function App() {

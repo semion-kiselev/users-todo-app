@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Permission } from './permissions.types';
 import { DatabaseService } from '../database/database.service';
+import { Permission } from './permissions.types';
 
 @Injectable()
 export class PermissionsService {

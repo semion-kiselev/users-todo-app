@@ -1,11 +1,11 @@
-import { NavLink, Form, useActionData } from "@remix-run/react";
-import { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { authenticator } from "~/auth/auth.server";
-import { AuthorizationError } from "remix-auth";
+import { ActionFunctionArgs, LoaderFunctionArgs } from '@remix-run/node';
+import { NavLink, Form, useActionData } from '@remix-run/react';
+import { AuthorizationError } from 'remix-auth';
+import { authenticator } from '~/auth/auth.server';
 
 export default function Login() {
   const data = useActionData<typeof action>();
-  const isError = typeof data === "object" && "error" in data;
+  const isError = typeof data === 'object' && 'error' in data;
 
   return (
     <div className="bg-orange-600 h-full">
@@ -25,10 +25,7 @@ export default function Login() {
         </div>
         <div className="mt-2">
           <div>Password:</div>
-          <input
-            name="password"
-            required
-          />
+          <input name="password" required />
         </div>
         <div className="mt-2">
           <button>Send</button>
@@ -40,8 +37,8 @@ export default function Login() {
 
 export async function action({ request }: ActionFunctionArgs) {
   try {
-    return await authenticator.authenticate("user-pass", request, {
-      successRedirect: "/",
+    return await authenticator.authenticate('user-pass', request, {
+      successRedirect: '/',
     });
   } catch (err) {
     if (err instanceof Response) return err;
@@ -54,6 +51,6 @@ export async function action({ request }: ActionFunctionArgs) {
 
 export async function loader({ request }: LoaderFunctionArgs) {
   return await authenticator.isAuthenticated(request, {
-    successRedirect: "/",
+    successRedirect: '/',
   });
 }
