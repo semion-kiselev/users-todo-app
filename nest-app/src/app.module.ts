@@ -7,8 +7,8 @@ import tokenConfig from './config/token.config';
 import { DatabaseModule } from './database/database.module';
 import { GlobalExceptionFilter } from './errors/global-exceprion-filter.filter';
 import { PermissionsModule } from './permissions/permissions.module';
+import { TodosModule } from './todos/todos.module';
 import { UsersModule } from './users/users.module';
-import { TodosModule } from "./todos/todos.module";
 
 @Module({
   imports: [

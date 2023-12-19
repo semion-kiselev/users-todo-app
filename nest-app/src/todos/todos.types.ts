@@ -1,5 +1,8 @@
 import { z } from 'zod';
-import { CreateTodoPayloadSchema, UpdateTodoPayloadSchema } from "./todos.schemas";
+import {
+  CreateTodoPayloadSchema,
+  UpdateTodoPayloadSchema,
+} from './todos.schemas';
 
 export type Todo = {
   id: number;

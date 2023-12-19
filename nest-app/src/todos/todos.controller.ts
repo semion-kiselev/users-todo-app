@@ -8,10 +8,14 @@ import {
   Param,
   ParseIntPipe,
 } from '@nestjs/common';
-import { ZodPipe } from "../pipes/zod-pipe";
-import { CreateTodoPayloadSchema, TodoIdSchema, UpdateTodoPayloadSchema } from "./todos.schemas";
-import { CreateTodoPayload, Todo, UpdateTodoPayload } from "./todos.types";
-import { TodosService } from "./todos.service";
+import { ZodPipe } from '../pipes/zod-pipe';
+import {
+  CreateTodoPayloadSchema,
+  TodoIdSchema,
+  UpdateTodoPayloadSchema,
+} from './todos.schemas';
+import { TodosService } from './todos.service';
+import { CreateTodoPayload, Todo, UpdateTodoPayload } from './todos.types';
 
 @Controller('todos')
 export class TodosController {
