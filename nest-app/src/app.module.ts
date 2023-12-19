@@ -8,6 +8,7 @@ import { DatabaseModule } from './database/database.module';
 import { GlobalExceptionFilter } from './errors/global-exceprion-filter.filter';
 import { PermissionsModule } from './permissions/permissions.module';
 import { UsersModule } from './users/users.module';
+import { TodosModule } from "./todos/todos.module";
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { UsersModule } from './users/users.module';
     DatabaseModule,
     PermissionsModule,
     UsersModule,
+    TodosModule,
     AuthModule,
   ],
   providers: [
