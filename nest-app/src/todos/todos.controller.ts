@@ -41,6 +41,11 @@ export class TodosController {
     return this.todosService.getTodos();
   }
 
+  @Get(':id')
+  getTodo(@Param('id', ParseIntPipe, new ZodPipe(TodoIdSchema)) id: number) {
+    return this.todosService.getTodo(id);
+  }
+
   @Delete(':id')
   deleteUser(@Param('id', ParseIntPipe, new ZodPipe(TodoIdSchema)) id: number) {
     return this.todosService.deleteTodo(id);

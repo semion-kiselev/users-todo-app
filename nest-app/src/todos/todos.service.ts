@@ -18,6 +18,19 @@ export class TodosService {
       .then(({ rows }) => rows);
   }
 
+  async getTodo(id: number) {
+    const result = await this.pool.query(
+      'SELECT id, name, done FROM todo WHERE id = $1',
+      [id],
+    );
+
+    if (result.rowCount === 0) {
+      throw new NotFoundException();
+    }
+
+    return result.rows[0];
+  }
+
   createTodo({ name }: CreateTodoPayload) {
     return this.pool
       .query('INSERT INTO todo (name) VALUES ($1) RETURNING *', [name])
