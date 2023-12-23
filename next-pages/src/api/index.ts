@@ -1,7 +1,11 @@
 import { BASE_URL } from '@/constants';
 import { Todo } from '@/types/todos';
 
+const sleep = (time: number = 2000) =>
+  new Promise((res) => setTimeout(res, time));
+
 export const getTodos = async (): Promise<Todo[]> => {
+  await sleep();
   const res = await fetch(`${BASE_URL}/todos`);
   if (!res.ok) {
     throw new Error('Failed to fetch todos');
@@ -10,6 +14,7 @@ export const getTodos = async (): Promise<Todo[]> => {
 };
 
 export const getTodo = async (id: number): Promise<Todo> => {
+  await sleep();
   const res = await fetch(`${BASE_URL}/todos/${id}`);
   if (!res.ok) {
     throw new Error('Failed to fetch todo');
@@ -18,6 +23,7 @@ export const getTodo = async (id: number): Promise<Todo> => {
 };
 
 export const createTodo = async (name: string) => {
+  await sleep();
   await fetch(`${BASE_URL}/todos`, {
     method: 'POST',
     headers: {
@@ -32,6 +38,7 @@ export const updateTodo = async (params: {
   name: string;
   done: boolean;
 }) => {
+  await sleep();
   await fetch(`${BASE_URL}/todos/${params.id}`, {
     method: 'PUT',
     headers: {
@@ -42,6 +49,7 @@ export const updateTodo = async (params: {
 };
 
 export const deleteTodo = async (id: number) => {
+  await sleep();
   await fetch(`${BASE_URL}/todos/${id}`, {
     method: 'DELETE',
   });
