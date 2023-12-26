@@ -1,14 +1,22 @@
-'use client'
+'use client';
 
-import { Todo } from "@/types/todos";
-import {updateTodoAction} from "@/actions";
+import { useRouter } from 'next/navigation';
+import { updateTodoAction } from '@/actions';
+import { Todo } from '@/types/todos';
 
 export const UpdateTodo = ({ todo }: { todo: Todo }) => {
+  const router = useRouter();
+
+  const handleUpdate = async (formData: FormData) => {
+    await updateTodoAction(formData);
+    router.push('/todos');
+  };
+
   return (
     <div>
       <h1>Update Todo</h1>
-      <form action={updateTodoAction}>
-        <input type="hidden" name="todo-id" value={todo.id}/>
+      <form action={handleUpdate}>
+        <input type="hidden" name="todo-id" value={todo.id} />
         <div className="py-2">
           <label htmlFor="name">Name: </label>
           <input
@@ -28,4 +36,4 @@ export const UpdateTodo = ({ todo }: { todo: Todo }) => {
       </form>
     </div>
   );
-}
+};

@@ -1,10 +1,18 @@
-'use client'
+'use client';
 
-import Link from "next/link";
-import {Todo} from "@/types/todos";
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { deleteTodoAction } from '@/actions';
+import { Todo } from '@/types/todos';
 
 export const Todos = ({ todos }: { todos: Todo[] }) => {
+  const router = useRouter();
+
+  const handleDelete = async (formData: FormData) => {
+    await deleteTodoAction(formData);
+    router.refresh();
+  };
+
   const renderTodos = () => {
     return (
       <div className="relative">
@@ -23,8 +31,8 @@ export const Todos = ({ todos }: { todos: Todo[] }) => {
                 </Link>
               </div>
               <div>
-                <form action={deleteTodoAction}>
-                  <input type="hidden" name="todo-id" value={id}/>
+                <form action={handleDelete}>
+                  <input type="hidden" name="todo-id" value={id} />
                   <button type="submit">Delete</button>
                 </form>
               </div>
@@ -46,4 +54,4 @@ export const Todos = ({ todos }: { todos: Todo[] }) => {
       {renderTodos()}
     </div>
   );
-}
+};

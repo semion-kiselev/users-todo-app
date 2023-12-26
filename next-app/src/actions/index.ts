@@ -1,9 +1,9 @@
-'use server'
+'use server';
 
-import { deleteTodo, createTodo, updateTodo } from "@/api";
-import {revalidatePath} from "next/cache";
+import { revalidatePath } from 'next/cache';
+import { deleteTodo, createTodo, updateTodo } from '@/api';
 
-export const deleteTodoAction = async (formData: FormData)=> {
+export const deleteTodoAction = async (formData: FormData) => {
   const id = Number(formData.get('todo-id'));
   try {
     await deleteTodo(Number(id));
@@ -11,9 +11,9 @@ export const deleteTodoAction = async (formData: FormData)=> {
   } catch (e) {
     console.log(`Delete todo ${id} Error`);
   }
-}
+};
 
-export const createTodoAction = async (formData: FormData)=> {
+export const createTodoAction = async (formData: FormData) => {
   const name = formData.get('name') as string;
   try {
     await createTodo(name);
@@ -21,9 +21,9 @@ export const createTodoAction = async (formData: FormData)=> {
   } catch (e) {
     console.log(`Create todo ${name} Error`);
   }
-}
+};
 
-export const updateTodoAction = async (formData: FormData)=> {
+export const updateTodoAction = async (formData: FormData) => {
   const id = Number(formData.get('todo-id'));
   const name = formData.get('name') as string;
   const done = Boolean(formData.get('done'));
@@ -33,4 +33,4 @@ export const updateTodoAction = async (formData: FormData)=> {
   } catch (e) {
     console.log(`Update todo ${name} Error`);
   }
-}
+};

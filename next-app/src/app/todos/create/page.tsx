@@ -1,7 +1,5 @@
-import { CreateTodo } from "@/components/create-todo";
+import { CreateTodo } from '@/components/create-todo';
 
 export default function CreateTodoPage() {
-  return (
-    <CreateTodo />
-  );
+  return <CreateTodo />;
 }

@@ -8,7 +8,7 @@ import {
 import type { GetServerSideProps } from 'next';
 import Link from 'next/link';
 import { deleteTodo, getTodos } from '@/api';
-import { Refresher } from "@/components/refresher";
+import { Refresher } from '@/components/refresher';
 
 export const getServerSideProps = (async () => {
   const queryClient = new QueryClient();
